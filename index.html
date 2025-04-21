@@ -5,6 +5,7 @@
   <title>SHΛDØWLINΞ LOGIN</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
     body {
       background-color: #000;
       color: #0f0;
@@ -17,16 +18,19 @@
       overflow: hidden;
       margin: 0;
     }
+
     h1 {
       font-size: 32px;
       text-shadow: 0 0 10px #0f0;
       margin-bottom: 20px;
       animation: flicker 1.5s infinite;
     }
+
     @keyframes flicker {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.7; }
     }
+
     .terminal {
       border: 2px solid #0f0;
       padding: 20px;
@@ -34,6 +38,7 @@
       box-shadow: 0 0 20px #0f0;
       background-color: rgba(0, 0, 0, 0.85);
     }
+
     input {
       width: 100%;
       padding: 10px;
@@ -44,6 +49,7 @@
       margin-bottom: 10px;
       font-family: inherit;
     }
+
     button {
       width: 100%;
       padding: 10px;
@@ -54,6 +60,7 @@
       cursor: pointer;
       font-family: inherit;
     }
+
     .access {
       display: none;
       font-size: 20px;
@@ -73,15 +80,15 @@
 </div>
 
 <audio id="shadowSound">
-  <source src="https://cdn.pixabay.com/audio/2022/03/16/audio_a6a5917c77.mp3" type="audio/mpeg">
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
 
 <script>
   function grantAccess() {
     document.getElementById("accessMessage").style.display = "block";
     const audio = document.getElementById("shadowSound");
-    audio.volume = 0.7;
-    audio.play().catch(e => console.log("Audio blocked:", e));
+    audio.volume = 0.5;
+    audio.play().catch(e => console.warn("Audio playback failed:", e));
   }
 </script>
 
