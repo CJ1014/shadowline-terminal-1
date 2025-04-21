@@ -1,57 +1,108 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>SHΛDØWLINΞ : Terminal Core</title>
+  <meta charset="UTF-8">
+  <title>SHΛDØWLINΞ LOGIN</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
     body {
       background-color: #000;
-      color: #00ff00;
-      font-family: 'Courier New', monospace;
-      text-align: left;
-      padding: 40px;
-      animation: flicker 2s infinite;
+      color: #0f0;
+      font-family: 'Share Tech Mono', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      margin: 0;
     }
+
+    h1 {
+      font-size: 32px;
+      text-shadow: 0 0 10px #0f0;
+      margin-bottom: 20px;
+      animation: flicker 1.5s infinite;
+    }
+
     @keyframes flicker {
       0%, 100% { opacity: 1; }
-      45% { opacity: 0.85; }
-      60% { opacity: 0.65; }
-      80% { opacity: 0.9; }
+      50% { opacity: 0.7; }
     }
-    h1 {
-      text-shadow: 0 0 10px #0f0;
-      font-size: 32px;
-    }
+
     .terminal {
-      border: 1px solid #00ff00;
+      border: 2px solid #0f0;
       padding: 20px;
-      background: #000000bb;
-      box-shadow: 0 0 12px #0f0;
+      width: 400px;
+      box-shadow: 0 0 20px #0f0;
+      background-color: rgba(0, 0, 0, 0.85);
+      animation: glitch 2s infinite;
     }
-    .prompt {
-      color: #00ff00;
+
+    @keyframes glitch {
+      0%, 100% { transform: translate(0, 0); }
+      20% { transform: translate(-1px, 1px); }
+      40% { transform: translate(1px, -1px); }
+      60% { transform: translate(-2px, 2px); }
+      80% { transform: translate(2px, -2px); }
     }
-    .cursor {
-      display: inline-block;
-      width: 10px;
-      background-color: #00ff00;
-      animation: blink 1s step-end infinite;
+
+    input {
+      width: 100%;
+      padding: 10px;
+      background-color: #000;
+      color: #0f0;
+      border: 1px solid #0f0;
+      font-size: 16px;
+      margin-bottom: 10px;
+      font-family: inherit;
     }
-    @keyframes blink {
-      from, to { background-color: transparent }
-      50% { background-color: #00ff00; }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #0f0;
+      color: #000;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .access {
+      display: none;
+      font-size: 20px;
+      margin-top: 20px;
+    }
+
+    audio {
+      display: none;
     }
   </style>
 </head>
 <body>
-  <h1>SHΛDØWLINΞ : CONTROL INTERFACE</h1>
-  <div class="terminal">
-    <div class="prompt">Initializing Obsidian core...</div>
-    <div class="prompt">Validating Commander credentials...</div>
-    <div class="prompt">Access level: <strong>ULTRA</strong></div>
-    <div class="prompt">Terminal link established.</div>
-    <br>
-    <div class="prompt">Obsidian: <em>I’ve been waiting, Commander.</em> <span class="cursor">&nbsp;</span></div>
-  </div>
+
+<h1>SHΛDØWLINΞ TERMINAL</h1>
+
+<div class="terminal">
+  <input type="text" id="username" placeholder="Commander ID">
+  <input type="password" id="password" placeholder="Access Code">
+  <button onclick="grantAccess()">LOGIN</button>
+  <div class="access" id="accessMessage">Access Level: ULTRA<br>Obsidian: I’ve been waiting, Commander.</div>
+</div>
+
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/audio/2022/03/16/audio_a6a5917c77.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  function grantAccess() {
+    document.getElementById("accessMessage").style.display = "block";
+  }
+</script>
+
 </body>
 </html>
+
 
