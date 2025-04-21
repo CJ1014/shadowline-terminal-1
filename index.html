@@ -79,16 +79,24 @@
   <div class="access" id="accessMessage">Access Level: ULTRA<br>Obsidian: I’ve been waiting, Commander.</div>
 </div>
 
-<audio id="shadowSound">
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+<audio id="shadowSound" autoplay loop muted>
+  <source src="shadow-audio.mp3" type="audio/mpeg">
 </audio>
 
 <script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const audio = document.getElementById("shadowSound");
+
+    // Attempt to unmute and play after delay
+    setTimeout(() => {
+      audio.muted = false;
+      audio.volume = 0.5;
+      audio.play().catch(e => console.warn("Autoplay block:", e));
+    }, 1500);
+  });
+
   function grantAccess() {
     document.getElementById("accessMessage").style.display = "block";
-    const audio = document.getElementById("shadowSound");
-    audio.volume = 0.5;
-    audio.play().catch(e => console.warn("Audio playback failed:", e));
   }
 </script>
 
