@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>SHΛDØWLINΞ TERMINAL</title>
+  <meta charset="UTF-8">
+  <title>SHΛDØWLINΞ LOGIN</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
     body {
-      margin: 0;
-      padding: 0;
       background-color: #000;
       color: #0f0;
       font-family: 'Share Tech Mono', monospace;
@@ -16,49 +15,56 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
+      overflow: hidden;
+      margin: 0;
     }
 
     h1 {
+      font-size: 32px;
       text-shadow: 0 0 10px #0f0;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
+      animation: flicker 1.5s infinite;
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
     }
 
     .terminal {
-      width: 600px;
-      max-width: 90%;
       border: 2px solid #0f0;
       padding: 20px;
-      box-shadow: 0 0 25px #0f0;
-      background-color: rgba(0, 0, 0, 0.9);
+      width: 400px;
+      box-shadow: 0 0 20px #0f0;
+      background-color: rgba(0, 0, 0, 0.85);
     }
 
-    input, button {
+    input {
       width: 100%;
-      margin-bottom: 10px;
       padding: 10px;
       background-color: #000;
       color: #0f0;
       border: 1px solid #0f0;
-      font-family: inherit;
       font-size: 16px;
+      margin-bottom: 10px;
+      font-family: inherit;
     }
 
-    .output {
-      margin-top: 20px;
-      white-space: pre-wrap;
-      min-height: 80px;
-    }
-
-    .cursor {
-      display: inline-block;
-      width: 10px;
+    button {
+      width: 100%;
+      padding: 10px;
       background-color: #0f0;
-      animation: blink 1s step-end infinite;
+      color: #000;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: inherit;
     }
 
-    @keyframes blink {
-      from, to { background-color: transparent; }
-      50% { background-color: #0f0; }
+    .access {
+      display: none;
+      font-size: 20px;
+      margin-top: 20px;
     }
   </style>
 </head>
@@ -69,38 +75,26 @@
 <div class="terminal">
   <input type="text" id="username" placeholder="Commander ID">
   <input type="password" id="password" placeholder="Access Code">
-  <button onclick="startSequence()">LOGIN</button>
-  <div class="output" id="terminalOutput"></div>
+  <button onclick="grantAccess()">LOGIN</button>
+  <div class="access" id="accessMessage">Access Level: ULTRA<br>Obsidian: I’ve been waiting, Commander.</div>
 </div>
 
+<audio id="shadowSound" autoplay loop muted>
+  <source src="https://cdn.pixabay.com/audio/2023/03/01/audio_8456a3900b.ogg" type="audio/ogg">
+</audio>
+
 <script>
-  const output = document.getElementById('terminalOutput');
-  const messages = [
-    "Access Level: ULTRA",
-    "Verifying Commander...",
-    "Identity Confirmed.",
-    "Booting Obsidian Core...",
-    "Obsidian: Online.",
-    "Obsidian: Welcome back, Commander. Awaiting your directive. ▌"
-  ];
+  window.addEventListener('DOMContentLoaded', () => {
+    const audio = document.getElementById("shadowSound");
+    setTimeout(() => {
+      audio.muted = false;
+      audio.volume = 0.4;
+      audio.play().catch(e => console.warn("Autoplay block:", e));
+    }, 1000);
+  });
 
-  function typeMessage(text, i = 0) {
-    if (i < text.length) {
-      output.innerHTML += text.charAt(i);
-      setTimeout(() => typeMessage(text, i + 1), 35);
-    } else {
-      output.innerHTML += "\n\n";
-      const next = messages.shift();
-      if (next) setTimeout(() => typeMessage(next), 500);
-    }
-  }
-
-  function startSequence() {
-    document.getElementById('username').style.display = 'none';
-    document.getElementById('password').style.display = 'none';
-    event.target.style.display = 'none';
-    output.innerHTML = "";
-    typeMessage(messages.shift());
+  function grantAccess() {
+    document.getElementById("accessMessage").style.display = "block";
   }
 </script>
 
