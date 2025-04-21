@@ -5,103 +5,88 @@
   <title>SHΛDØWLINΞ TERMINAL</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
     body {
       margin: 0;
       padding: 0;
       background-color: #000;
       color: #0f0;
       font-family: 'Share Tech Mono', monospace;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
     }
 
-    h1 {
-      text-shadow: 0 0 10px #0f0;
-      margin-bottom: 30px;
-    }
-
-    .terminal {
-      width: 600px;
-      max-width: 90%;
+    #terminal {
+      max-width: 800px;
+      margin: 60px auto;
+      padding: 30px;
       border: 2px solid #0f0;
-      padding: 20px;
-      box-shadow: 0 0 25px #0f0;
       background-color: rgba(0, 0, 0, 0.9);
+      box-shadow: 0 0 20px #0f0;
+      white-space: pre-wrap;
+      overflow-y: auto;
+      min-height: 400px;
     }
 
-    input, button {
-      width: 100%;
-      margin-bottom: 10px;
-      padding: 10px;
+    #inputLine {
+      display: flex;
+      align-items: center;
+    }
+
+    #inputLine label {
+      margin-right: 10px;
+    }
+
+    #commandInput {
       background-color: #000;
       color: #0f0;
-      border: 1px solid #0f0;
-      font-family: inherit;
+      border: none;
+      border-bottom: 1px solid #0f0;
       font-size: 16px;
-    }
-
-    .output {
-      margin-top: 20px;
-      white-space: pre-wrap;
-      min-height: 80px;
-    }
-
-    .cursor {
-      display: inline-block;
-      width: 10px;
-      background-color: #0f0;
-      animation: blink 1s step-end infinite;
-    }
-
-    @keyframes blink {
-      from, to { background-color: transparent; }
-      50% { background-color: #0f0; }
+      font-family: inherit;
+      flex-grow: 1;
+      outline: none;
     }
   </style>
 </head>
 <body>
 
-<h1>SHΛDØWLINΞ TERMINAL</h1>
+<div id="terminal">
+  SHΛDØWLINΞ TERMINAL ONLINE  
+  Type 'help' for a list of commands.
 
-<div class="terminal">
-  <input type="text" id="username" placeholder="Commander ID">
-  <input type="password" id="password" placeholder="Access Code">
-  <button onclick="startSequence()">LOGIN</button>
-  <div class="output" id="terminalOutput"></div>
+  >
+</div>
+
+<div id="inputLine" style="position: fixed; bottom: 40px; width: 100%; padding: 0 40px;">
+  <label for="commandInput">></label>
+  <input type="text" id="commandInput" autocomplete="off" autofocus />
 </div>
 
 <script>
-  const output = document.getElementById('terminalOutput');
-  const messages = [
-    "Access Level: ULTRA",
-    "Verifying Commander...",
-    "Identity Confirmed.",
-    "Booting Obsidian Core...",
-    "Obsidian: Online.",
-    "Obsidian: Welcome back, Commander. Awaiting your directive. ▌"
-  ];
+  const terminal = document.getElementById("terminal");
+  const input = document.getElementById("commandInput");
 
-  function typeMessage(text, i = 0) {
-    if (i < text.length) {
-      output.innerHTML += text.charAt(i);
-      setTimeout(() => typeMessage(text, i + 1), 35);
-    } else {
-      output.innerHTML += "\n\n";
-      const next = messages.shift();
-      if (next) setTimeout(() => typeMessage(next), 500);
+  const responses = {
+    help: "Available commands:\nlaunch\ntrace\nshutdown\nstatus\nhelp",
+    launch: "Protocol LAUNCH initialized.",
+    trace: "Tracing intrusions... none found.",
+    shutdown: "System shutdown aborted. Obsidian overrides.",
+    status: "All systems nominal. Awaiting command."
+  };
+
+  function addLine(text) {
+    terminal.innerHTML += `\n${text}`;
+    terminal.scrollTop = terminal.scrollHeight;
+  }
+
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      const cmd = input.value.trim().toLowerCase();
+      addLine(`> ${cmd}`);
+      const response = responses[cmd] || "Unknown command. Type 'help'.";
+      addLine(response);
+      input.value = "";
     }
-  }
-
-  function startSequence() {
-    document.getElementById('username').style.display = 'none';
-    document.getElementById('password').style.display = 'none';
-    event.target.style.display = 'none';
-    output.innerHTML = "";
-    typeMessage(messages.shift());
-  }
+  });
 </script>
 
 </body>
