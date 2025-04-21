@@ -79,20 +79,7 @@
   <div class="access" id="accessMessage">Access Level: ULTRA<br>Obsidian: I’ve been waiting, Commander.</div>
 </div>
 
-<audio id="shadowSound" autoplay loop muted>
-  <source src="https://cdn.pixabay.com/audio/2023/03/01/audio_8456a3900b.ogg" type="audio/ogg">
-</audio>
-
 <script>
-  window.addEventListener('DOMContentLoaded', () => {
-    const audio = document.getElementById("shadowSound");
-    setTimeout(() => {
-      audio.muted = false;
-      audio.volume = 0.4;
-      audio.play().catch(e => console.warn("Autoplay block:", e));
-    }, 1000);
-  });
-
   function grantAccess() {
     document.getElementById("accessMessage").style.display = "block";
   }
