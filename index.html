@@ -1,92 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>SHΛDØWLINΞ TERMINAL</title>
+  <meta charset="UTF-8">
+  <title>SHΛDØWLINΞ: Obsidian Breakpoint</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
     body {
-      margin: 0;
-      padding: 0;
-      background-color: #000;
+      background-color: black;
       color: #0f0;
       font-family: 'Share Tech Mono', monospace;
+      padding: 40px;
     }
 
-    #terminal {
-      max-width: 800px;
-      margin: 60px auto;
-      padding: 30px;
-      border: 2px solid #0f0;
-      background-color: rgba(0, 0, 0, 0.9);
-      box-shadow: 0 0 20px #0f0;
-      white-space: pre-wrap;
-      overflow-y: auto;
-      min-height: 400px;
+    #login, #terminal {
+      max-width: 700px;
+      margin: auto;
+      display: none;
     }
 
-    #inputLine {
-      display: flex;
-      align-items: center;
+    #login {
+      display: block;
     }
 
-    #inputLine label {
-      margin-right: 10px;
-    }
-
-    #commandInput {
-      background-color: #000;
+    input {
+      background: #000;
       color: #0f0;
-      border: none;
-      border-bottom: 1px solid #0f0;
-      font-size: 16px;
+      border: 1px solid #0f0;
+      padding: 10px;
+      width: 100%;
       font-family: inherit;
-      flex-grow: 1;
-      outline: none;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px;
+      margin-top: 10px;
+      width: 100%;
+      font-family: inherit;
+      background: #0f0;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .glitch {
+      animation: flicker 1.4s infinite;
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+      70% { opacity: 0.6; }
+      90% { opacity: 1; }
     }
   </style>
 </head>
 <body>
 
-<div id="terminal">
-  SHΛDØWLINΞ TERMINAL ONLINE  
-  Type 'help' for a list of commands.
-
-  >
+<div id="login">
+  <h1>SHΛDØWLINΞ LOGIN</h1>
+  <p>Enter access key:</p>
+  <input type="password" id="passwordInput" placeholder="Access Code">
+  <button onclick="verify()">ENTER</button>
+  <p id="loginError" style="color:red; display:none;">ACCESS DENIED.</p>
 </div>
 
-<div id="inputLine" style="position: fixed; bottom: 40px; width: 100%; padding: 0 40px;">
-  <label for="commandInput">></label>
-  <input type="text" id="commandInput" autocomplete="off" autofocus />
+<div id="terminal">
+  <h2 class="glitch">SHΛDØWLINΞ TERMINAL CORE</h2>
+  <pre id="output">Obsidian: Online. Type 'help' for available commands.</pre>
+  <input type="text" id="cmdInput" placeholder="Enter command">
 </div>
 
 <script>
-  const terminal = document.getElementById("terminal");
-  const input = document.getElementById("commandInput");
+  const output = document.getElementById('output');
+  const cmdInput = document.getElementById('cmdInput');
+  const loginDiv = document.getElementById('login');
+  const terminalDiv = document.getElementById('terminal');
 
-  const responses = {
-    help: "Available commands:\nlaunch\ntrace\nshutdown\nstatus\nhelp",
-    launch: "Protocol LAUNCH initialized.",
-    trace: "Tracing intrusions... none found.",
-    shutdown: "System shutdown aborted. Obsidian overrides.",
-    status: "All systems nominal. Awaiting command."
+  const commands = {
+    help: "Available commands:\n> unlock.exe\n> archive.drop\n> x_core\n> status\n> help",
+    "unlock.exe": "Gate protocol bypassed. Access granted.",
+    "archive.drop": "Dumping Obsidian logs...\n[███     ] 33%\n[██████  ] 66%\n[████████] 100%\nLogs exported.",
+    "x_core": "Accessing neural bridge...\nMemory thread stable.\nAI loop engaged.",
+    status: "All Shadowline systems nominal. Awaiting directive.",
   };
 
-  function addLine(text) {
-    terminal.innerHTML += `\n${text}`;
-    terminal.scrollTop = terminal.scrollHeight;
+  function verify() {
+    const pass = document.getElementById('passwordInput').value.toLowerCase();
+    if (pass === 'shadowline') {
+      loginDiv.style.display = 'none';
+      terminalDiv.style.display = 'block';
+      cmdInput.focus();
+    } else {
+      document.getElementById('loginError').style.display = 'block';
+    }
   }
 
-  input.addEventListener("keydown", function (e) {
+  cmdInput.addEventListener('keydown', function(e) {
     if (e.key === "Enter") {
-      const cmd = input.value.trim().toLowerCase();
-      addLine(`> ${cmd}`);
-      const response = responses[cmd] || "Unknown command. Type 'help'.";
-      addLine(response);
-      input.value = "";
+      const input = cmdInput.value.trim();
+      appendToTerminal("> " + input);
+      const response = commands[input.toLowerCase()] || "Obsidian: Unknown command.";
+      fakeType(response);
+      cmdInput.value = '';
     }
   });
+
+  function appendToTerminal(text) {
+    output.innerText += "\n" + text;
+    output.scrollTop = output.scrollHeight;
+  }
+
+  function fakeType(text, i = 0) {
+    if (i < text.length) {
+      output.innerText += text.charAt(i);
+      output.scrollTop = output.scrollHeight;
+      setTimeout(() => fakeType(text, i + 1), 20);
+    } else {
+      output.innerText += "\n";
+    }
+  }
 </script>
 
 </body>
