@@ -92,17 +92,18 @@
   <div class="access" id="accessMessage">Access Level: ULTRA<br>Obsidian: I’ve been waiting, Commander.</div>
 </div>
 
-<audio autoplay loop>
+<audio id="shadowSound" autoplay loop muted>
   <source src="https://cdn.pixabay.com/audio/2022/03/16/audio_a6a5917c77.mp3" type="audio/mpeg">
 </audio>
 
 <script>
   function grantAccess() {
     document.getElementById("accessMessage").style.display = "block";
+    const audio = document.getElementById("shadowSound");
+    audio.muted = false;
+    audio.play();
   }
 </script>
 
 </body>
 </html>
-
-
