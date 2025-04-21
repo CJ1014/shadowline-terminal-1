@@ -1,23 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Shadowline Terminal</title>
+  <title>SHΛDØWLINΞ : Terminal Core</title>
   <style>
     body {
-      background-color: black;
-      color: lime;
-      font-family: monospace;
-      text-align: center;
-      padding-top: 100px;
+      background-color: #000;
+      color: #00ff00;
+      font-family: 'Courier New', monospace;
+      text-align: left;
+      padding: 40px;
+      animation: flicker 2s infinite;
+    }
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      45% { opacity: 0.85; }
+      60% { opacity: 0.65; }
+      80% { opacity: 0.9; }
     }
     h1 {
-      font-size: 40px;
-      text-shadow: 0 0 10px lime;
+      text-shadow: 0 0 10px #0f0;
+      font-size: 32px;
+    }
+    .terminal {
+      border: 1px solid #00ff00;
+      padding: 20px;
+      background: #000000bb;
+      box-shadow: 0 0 12px #0f0;
+    }
+    .prompt {
+      color: #00ff00;
+    }
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      background-color: #00ff00;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink {
+      from, to { background-color: transparent }
+      50% { background-color: #00ff00; }
     }
   </style>
 </head>
 <body>
-  <h1>SHADOWLINE SYSTEM ENGAGED</h1>
-  <p>Welcome, Commander. Obsidian is active.</p>
+  <h1>SHΛDØWLINΞ : CONTROL INTERFACE</h1>
+  <div class="terminal">
+    <div class="prompt">Initializing Obsidian core...</div>
+    <div class="prompt">Validating Commander credentials...</div>
+    <div class="prompt">Access level: <strong>ULTRA</strong></div>
+    <div class="prompt">Terminal link established.</div>
+    <br>
+    <div class="prompt">Obsidian: <em>I’ve been waiting, Commander.</em> <span class="cursor">&nbsp;</span></div>
+  </div>
 </body>
 </html>
+
